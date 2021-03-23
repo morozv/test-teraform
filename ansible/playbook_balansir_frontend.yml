@@ -1,0 +1,45 @@
+---
+- name : Пишем имя плейбук
+  hosts: balansir_frontend # группа севреров
+  become: yes # говорим что все будет запускатся от имени root с наивысшими привилегиями
+  
+  #пишим переменные
+  vars:
+    source_file1: ./site1/index.html
+    source_file2: ./site2/index.html
+    destin_file: /var/www/http/
+
+  # Начинаем писать команды 
+
+  tasks:
+  - name: пингуем все сервера
+    ping # модуль пинга
+
+  - name: устанвоим mc
+    dnf: name=mc state=latest
+
+  - name: устанвоим  nginx
+    dnf: name=nginx state=latest
+
+  - name: запустим наш nginx и сделаем его запускаемой при старте севрера службой
+    service: name=nginx state=started enabled=yes
+
+  - name: узнаем ip  машины
+    debug: var=ansible_all_ipv4_addresses #возвращаетнам ip 
+  
+  - name: копируем файлы сайта на севрера
+    copy: src={{ source_file1 }} dest={{ destin_file }} mode=0555
+    notify: restart_server_nginx #если произошло копирование или замена файла тоесть всернулся статур истина то нужно выполнить лействие что описано в блоке handlers с именем restart_server_nginx
+    when: ansible_all_ipv4_addresses=="192.168.0.1" #если условие истина то выполнить дествие
+
+  - name: копируем файлы сайта на севрера
+    copy: src={{ source_file2 }} dest={{ destin_file }} mode=0555
+    notify: restart_server_nginx #если произошло копирование или замена файла тоесть всернулся статур тру то нужно выполнить лействие что описано в блоке handlers с именем restart_server_nginx
+    when: ansible_all_ipv4_addresses=="192.168.0.2"
+
+  - name: перезапустим запустим наш nginx
+    service: name=nginx state=rebuild
+
+  handlers:
+  - name: restart_server_nginx
+    service: name=nginx state=rebuild

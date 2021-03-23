@@ -1,0 +1,68 @@
+# команда вывода инвентори файла ансибл 
+# ansible-inventory -i inventory --list
+# или ansible-inventory --list
+# или красиво вывод ansible-inventory --graph
+
+# проверить все сервера, пропинговать
+# ansible all -m ping 
+
+# узнать всю инфу о севрере
+# ansible name_server_ili_grupp -m setup
+
+# Запус команд через терминал при помощи ансибла на всех севарерах и вывести результат на экран
+# ansible name_server_ili_grupp -m shell -a "reboot"
+
+# Скопировать файл на все сервера 
+# ansible all -m copy -a "srs=/home/morozov/namefile.txt dest=/home/ mode=777" -b -v
+# -b - быть sudo
+# -a - говорим что есть аргумент например пути или други аргументы
+# -m - указываем модуль
+# -v - даст информацию что происходит возможжно -vv -vvv -vvvv -vvvvv -чем больше v тем больше информации получите о присходящих процессах
+
+# удалить файл
+# ansible name_server_ili_grupp -m file -a "path=/home/morozov/morozov/namefile.txt state=absent" -b
+# state=absent - говорим что хотим его удалить
+
+# Скачать файл из интернета
+# ansible name_server_ili_grupp -m get_url -a "url=https://adress.lo.faila dest=/home/morozov/namefile.txt" -b 
+# он скачает и переименует в namefile.txt
+
+# установка программ на centos
+# ansible name_server_ili_grupp -m dfn -a "name=name_paketa state=latest" -b
+# state=latest - говорим что нам нужно установить последнийший самый свежий пакет можно installed что  есть тоже самое установт программу
+# state=removed - говорим что ты должен удалить данный пакет
+
+
+# Посмотреть контенс с айта на всех севрерах аналог curl
+# ansible name_server_ili_grupp -m uri -a "url=https://i.t.dalie.ru return_contetn=yes"
+# return_contetn=yes - возвращает нам что выводится на серверах
+
+# Запускаем сервис и добовляем его в атозапуск
+# ansible name_server_ili_grupp -m service -a "name=name_service state=started enabled=yes" -balansir_frontend
+# state=started - или stop или restart - действие
+# enabled=yes - говорим что хотим запускать его при старте
+
+# Запускаем плейбук 
+# ansible-playbook playbook.yml
+
+
+
+
+# [goli_host]
+# 192.168.0.77
+
+# linux ansible_host=192.168.0.77 ansible_user=morozov ansible_ssh_private_key_file=/home/morozov/.ssh/namefile.pem
+
+# [windows_server]
+# windows2012 ansible_host=192.168.0.77
+
+# переменные для серверов
+# [windows_server:vars]
+# ansible_user=morozov
+
+# обединение груп в группы
+# [GRUPPA_V_GRUPPE:children]
+# balansir_frontend
+# web_backend
+
+# group_vars - каталог содержит переменные для групп серверов имя файлов содержит название группы
