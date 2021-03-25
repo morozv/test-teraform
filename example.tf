@@ -42,8 +42,8 @@ resource "yandex_compute_instance" "vm-0-balansir" {
   # yc compute image list --folder-id standard-images | grep centos
   boot_disk {
     initialize_params {
-      #image_id = "<идентификатор образа>"
-      image_id = "fd8g0dj6sus84bcku631"
+      #image_id = "<идентификатор образа>" fd87uq4tagjupcnm376a - ubuntu 2004, fd8g0dj6sus84bcku631 - ctntos8
+      image_id = "fd8cn8os7a9dfgosb89r"
     }
   }
 
@@ -54,9 +54,9 @@ resource "yandex_compute_instance" "vm-0-balansir" {
 
   metadata = {
     # ssh-keys = "<имя пользователя>:<содержимое SSH-ключа>"
-    ssh-keys = "user:${file("key1.pub")}"
+    #ssh-keys = "user:${file("~/.ssh/id_ed25519.pub")}"
     # скрип установки софта и т.д.
-    user-data = file("skript.sh")
+    user-data = file("metadata.yaml")
     }
   
 }
@@ -87,7 +87,7 @@ resource "yandex_compute_instance" "vm-1-web0" {
   boot_disk {
     initialize_params {
       #image_id = "<идентификатор образа>"
-      image_id = "fd8g0dj6sus84bcku631"
+      image_id = "fd8cn8os7a9dfgosb89r"
     }
   }
 
@@ -98,9 +98,9 @@ resource "yandex_compute_instance" "vm-1-web0" {
 
   metadata = {
     # ssh-keys = "<имя пользователя>:<содержимое SSH-ключа>"
-    ssh-keys = "user:${file("key1.pub")}"
+    #ssh-keys = "user:${file("~/.ssh/id_ed25519.pub")}"
     # скрип установки софта и т.д.
-    user-data = file("skript.sh")
+    user-data = file("metadata.yaml")
     }
 }
 
@@ -130,7 +130,7 @@ resource "yandex_compute_instance" "vm-2-web1" {
   boot_disk {
     initialize_params {
       #image_id = "<идентификатор образа>"
-      image_id = "fd8g0dj6sus84bcku631"
+      image_id = "fd8cn8os7a9dfgosb89r"
     }
   }
 
@@ -141,9 +141,9 @@ resource "yandex_compute_instance" "vm-2-web1" {
 
   metadata = {
     # ssh-keys = "<имя пользователя>:<содержимое SSH-ключа>"
-    ssh-keys = "user:${file("key1.pub")}"
+    # ssh-keys = "user:${file("~/.ssh/id_ed25519.pub")}"
     # скрип установки софта и т.д.
-    user-data = file("skript.sh")
+    user-data = file("metadata.yaml")
     }
 }
 
@@ -167,7 +167,7 @@ output "internal_ip_address_vm_0_balansir" {
 }
 output "internal_ip_address_vm_1_web0" {
   value = yandex_compute_instance.vm-1-web0.network_interface.0.ip_address
-}
+} 
 output "internal_ip_address_vm_2_web1" {
   value = yandex_compute_instance.vm-2-web1.network_interface.0.ip_address
 }
@@ -176,7 +176,7 @@ output "external_ip_address_vm_0_balansir" {
 }
 output "external_ip_address_vm_1_web0" {
   value = yandex_compute_instance.vm-1-web0.network_interface.0.nat_ip_address
-}
+} 
 output "external_ip_address_vm_2_web1" {
   value = yandex_compute_instance.vm-2-web1.network_interface.0.nat_ip_address
-}
+} 
