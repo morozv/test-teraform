@@ -4,7 +4,8 @@
   # группа севреров
   become: yes 
   # говорим что все будет запускатся от имени root с наивысшими привилегиями
-  
+  roles:
+   - nginx
   #пишим переменные
   vars:
     source_file: ./site1/index.html
@@ -19,12 +20,76 @@
     # модуль пинга
 
   - name: устанвоим mc
-    dnf: name=mc state=latest
+    apt: name=mc state=latest
 
   - name: устанвоим  nginx
-    dnf: name=nginx state=latest
+    apt: name=nginx state=latest
 
   - name: запустим наш nginx и сделаем его запускаемой при старте севрера службой
     service: name=nginx state=started enabled=yes
 
+  - name: устанвоим openssl
+    apt: name=openssl state=latest
+
+  - name: create a directory /etc/ssl
+    file:
+     path: /etc/ssl
+     state: directory
+     #mode: 0755
+
+  - name: create a directory /etc/ssl/crt
+    file:
+     path: /etc/ssl/crt
+     state: directory
+     #mode: 0755
+
+  - name: create a directory /etc/ssl/private
+    file:
+     path: /etc/ssl/private
+     state: directory  
+     #mode: 0755
+  
+  - name: create a directory /etc/ssl/csr
+    file:
+     path: /etc/ssl/csr
+     state: directory  
+     #mode: 0777
+
+  - name: Generate an OpenSSL private key with the default values (4096 bits, RSA)
+    openssl_privatekey:
+     path: /etc/ssl/private/myhost.pem
+
+  - name: Generate an OpenSSL Certificate Signing Request with Subject information   
+    openssl_csr:
+     path: /etc/ssl/csr/myhost.csr
+     privatekey_path: /etc/ssl/private/myhost.pem
+     country_name: RU
+     organization_name: morozov in cor.
+     email_address: s.d.morozov@mail.ru
+     common_name: 178.154.207.206
     
+  - name: Generate a Self Signed OpenSSL certificate
+    openssl_certificate:
+     path: /etc/ssl/crt/myhost.crt
+     privatekey_path: /etc/ssl/private/myhost.pem
+     csr_path: /etc/ssl/csr/myhost.csr
+     provider: selfsigned
+
+  - name: Install Nginx
+    apt:
+     name: nginx
+     state: latest
+
+  - name: Replace NGINX config
+    template: 
+     src=/home/morozov/test-travel-teraform/ansible/roles/nginx/templates/nginx.conf
+     dest=/etc/nginx/nginx.conf
+    notify:
+     - NGINX reload
+
+  - name: Add NGINX virtualhost config
+    template:
+     src=/home/morozov/test-travel-teraform/ansible/roles/nginx/templates/nginx-balansir.conf
+     dest=/etc/nginx/conf.d/{{ hostname }}.conf
+    notify:
+     - NGINX reload

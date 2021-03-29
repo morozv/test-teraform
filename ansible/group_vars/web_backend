@@ -1,3 +1,0 @@
----
-ansible_user                   : morozov
-ansible_ssh_private_key_file   : /home/morozov/.ssh/namefile.pem

@@ -43,7 +43,7 @@ resource "yandex_compute_instance" "vm-0-balansir" {
   boot_disk {
     initialize_params {
       #image_id = "<идентификатор образа>" fd87uq4tagjupcnm376a - ubuntu 2004, fd8g0dj6sus84bcku631 - ctntos8
-      image_id = "fd8g0dj6sus84bcku631"
+      image_id = "fd87uq4tagjupcnm376a"
     }
   }
 
@@ -53,7 +53,7 @@ resource "yandex_compute_instance" "vm-0-balansir" {
   }
 
   metadata = {
-    # ssh-keys = "<имя пользователя>:<содержимое SSH-ключа>"
+    #ssh-keys = "<имя пользователя>:<содержимое SSH-ключа>"
     #ssh-keys = "user:${file("~/.ssh/id_ed25519.pub")}"
     # скрип установки софта и т.д.
     user-data = file("metadata.yaml")
@@ -87,7 +87,7 @@ resource "yandex_compute_instance" "vm-1-web0" {
   boot_disk {
     initialize_params {
       #image_id = "<идентификатор образа>"
-      image_id = "fd8g0dj6sus84bcku631"
+      image_id = "fd87uq4tagjupcnm376a"
     }
   }
 
@@ -130,7 +130,7 @@ resource "yandex_compute_instance" "vm-2-web1" {
   boot_disk {
     initialize_params {
       #image_id = "<идентификатор образа>"
-      image_id = "fd8g0dj6sus84bcku631"
+      image_id = "fd87uq4tagjupcnm376a"
     }
   }
 

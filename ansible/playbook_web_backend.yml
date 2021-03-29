@@ -40,5 +40,5 @@
     when: ansible_all_ipv4_addresses=="192.168.10.23"
 
   - name: перезапустим запустим наш nginx
-    service: name=nginx state=restart
+    service: name=nginx state=reload 
     
