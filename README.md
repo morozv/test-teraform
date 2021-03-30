@@ -1,11 +1,17 @@
 # test-travel-teraform
 Тестовое задание для травеллайна
 
-1. Terraform при помощи файла example.tf создает 3 виртальные машины с работоющим Nginx на борту  нам ключи ssh
-example.tf - исполняемый файли добавит
-skript.sh - скрипт установит нам Nginx 
+1. Terraform при помощи файла example.tf создает 3 виртальные машины и подсунит нам ключи ssh
+example.tf 
 
 Когда Terraform отработает он нам выдаст информацию по ip  адресам.
 
-2. поместим ip инвентори файл ansible и накатиm nginx, mc, и зальем файлы запуская по очередно плей буки
+2. поместим ip инвентори файл ansible и накатиm nginx, и зальем файлы конфигурации запуская по очередно плей буки
+
+playbook_balansir_frontend.yml
+
+playbook_web_backend.yml
+
+
+
 

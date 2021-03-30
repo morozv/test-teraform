@@ -8,9 +8,7 @@
    - nginx
   #пишим переменные
   vars:
-    source_file: ./site1/index.html
-    source_file2: ./site2/index.html
-    destin_file: /var/www/http/
+
 
   # Начинаем писать команды 
 
@@ -22,11 +20,10 @@
   - name: устанвоим mc
     apt: name=mc state=latest
 
-  - name: устанвоим  nginx
-    apt: name=nginx state=latest
+  # - name: устанвоим  nginx
+  #   apt: name=nginx state=latest
 
-  - name: запустим наш nginx и сделаем его запускаемой при старте севрера службой
-    service: name=nginx state=started enabled=yes
+
 
   - name: устанвоим openssl
     apt: name=openssl state=latest
@@ -66,7 +63,7 @@
      country_name: RU
      organization_name: morozov in cor.
      email_address: s.d.morozov@mail.ru
-     common_name: 178.154.207.206
+     common_name: 178.154.200.5
     
   - name: Generate a Self Signed OpenSSL certificate
     openssl_certificate:
@@ -93,3 +90,12 @@
      dest=/etc/nginx/conf.d/{{ hostname }}.conf
     notify:
      - NGINX reload
+
+  - name: запустим наш nginx и сделаем его запускаемой при старте севрера службой
+    service: name=nginx state=started enabled=yes
+
+  # - name: restart
+  #   service: 
+  #    name=nginx 
+  #    state=restarted
+  #    #reloaded

@@ -1,9 +1,10 @@
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
 Outputs:
 
-external_ip_address_vm_0_balansir = "178.154.207.206"
-external_ip_address_vm_1_web0 = "178.154.200.81"
-external_ip_address_vm_2_web1 = "178.154.203.164"
-internal_ip_address_vm_0_balansir = "192.168.10.10"
-internal_ip_address_vm_1_web0 = "192.168.10.25"
-internal_ip_address_vm_2_web1 = "192.168.10.30"
-gi
+external_ip_address_vm_0_balansir = "178.154.200.5"
+external_ip_address_vm_1_web0 = "178.154.207.127"
+external_ip_address_vm_2_web1 = "178.154.205.203"
+internal_ip_address_vm_0_balansir = "192.168.10.25"
+internal_ip_address_vm_1_web0 = "192.168.10.19"
+internal_ip_address_vm_2_web1 = "192.168.10.10"
