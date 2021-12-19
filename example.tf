@@ -8,11 +8,11 @@ terraform {
 provider "yandex" {
   #token     = "<OAuth>"
   #получить новый https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token
-  token = "AgAAAABTRcM5AATuwXYeSEccpkXFvBBq0AhU0z8"
+  token = "AgAAAABTRcM5AATuwXYe*******q0AhU0z8"
   #cloud_id  = "<идентификатор облака>"
-  cloud_id = "b1gbe7r94e8v9f6kaooh"
+  cloud_id = "b1gbe7r94e****6kaooh"
   #folder_id = "<идентификатор каталога>"
-  folder_id = "b1g73clmol4fsf0ru7ig"
+  folder_id = "b1g73clmol4f****7ig"
   zone      = "ru-central1-a"
 }
 
