@@ -1,5 +1,5 @@
-# test-travel-teraform
-Тестовое задание для травеллайна
+# test-teraform
+Тестовое задание для 
 
 1. Terraform при помощи файла example.tf создает 3 виртальные машины и подсунит нам ключи ssh
 example.tf 
